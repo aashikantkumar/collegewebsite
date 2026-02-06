@@ -36,14 +36,6 @@ const gentleFloatTransition: Transition = {
     repeatType: "loop"
 };
 
-// Pulsing glow transition
-const pulseTransition: Transition = {
-    duration: 3,
-    ease: "easeInOut",
-    repeat: Infinity,
-    repeatType: "loop"
-};
-
 import bgImage from '@/assets/cloud-iot-bg.png';
 
 const Hero = () => {

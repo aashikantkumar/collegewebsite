@@ -2,12 +2,9 @@ import { useEffect, useRef, useState } from 'react'
 import { gsap } from 'gsap'
 
 // Vector utilities
-class Vector2D {
-    constructor(public x: number, public y: number) { }
-}
-
-class Vector3D {
-    constructor(public x: number, public y: number, public z: number) { }
+interface Vector2D {
+    x: number;
+    y: number;
 }
 
 // Get points along text outline
@@ -34,10 +31,10 @@ function getTextPoints(text: string, fontSize: number, offsetX: number, offsetY:
         for (let x = 0; x < canvas.width; x += step) {
             const index = (y * canvas.width + x) * 4
             if (imageData.data[index + 3] > 128) {
-                points.push(new Vector2D(
-                    x - canvas.width / 2 + offsetX,
-                    y - canvas.height / 2 + offsetY
-                ))
+                points.push({
+                    x: x - canvas.width / 2 + offsetX,
+                    y: y - canvas.height / 2 + offsetY
+                })
             }
         }
     }
@@ -148,7 +145,6 @@ function lerp(start: number, end: number, t: number): number {
 class AnimationController {
     private timeline: gsap.core.Timeline
     private time = 0
-    private canvas: HTMLCanvasElement
     private ctx: CanvasRenderingContext2D
     private width: number
     private height: number
@@ -156,8 +152,7 @@ class AnimationController {
     private currentTextIndex = 0
     private texts = ['IEM Centre of Excellence for', 'Cloud Computing & IoT']
 
-    constructor(canvas: HTMLCanvasElement, ctx: CanvasRenderingContext2D, width: number, height: number) {
-        this.canvas = canvas
+    constructor(_canvas: HTMLCanvasElement, ctx: CanvasRenderingContext2D, width: number, height: number) {
         this.ctx = ctx
         this.width = width
         this.height = height
