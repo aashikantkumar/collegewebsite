@@ -25,8 +25,8 @@ function getTextPoints(text: string, fontSize: number, offsetX: number, offsetY:
     const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height)
     const points: Vector2D[] = []
 
-    // Sample points from the text - smaller step for more density
-    const step = 2
+    // Sample points from the text - larger step for better performance
+    const step = 4
     for (let y = 0; y < canvas.height; y += step) {
         for (let x = 0; x < canvas.width; x += step) {
             const index = (y * canvas.width + x) * 4
@@ -81,26 +81,26 @@ class Star {
 
         const adjustedP = Math.max(0, p - this.delay)
 
-        if (p < 0.35) {
-            // Converge phase
-            const localP = Math.min(1, adjustedP / 0.35)
+        if (p < 0.25) {
+            // Converge phase (faster)
+            const localP = Math.min(1, adjustedP / 0.25)
             const eased = easeOutElastic(localP)
 
             screenX = lerp(this.startX, this.targetX, eased)
             screenY = lerp(this.startY, this.targetY, eased)
             opacity = Math.min(1, localP * 2)
             size = 1.5 * this.strokeWeightFactor * (0.5 + eased * 0.5)
-        } else if (p < 0.65) {
-            // Hold phase with subtle motion
-            const floatTime = (p - 0.35) * 12
-            const floatAmount = Math.sin(floatTime) * 1.5
+        } else if (p < 0.75) {
+            // Hold phase with subtle motion (extended for readability)
+            const floatTime = (p - 0.25) * 8
+            const floatAmount = Math.sin(floatTime) * 1.2
             screenX = this.targetX + floatAmount * Math.cos(this.disperseAngle)
             screenY = this.targetY + floatAmount * Math.sin(this.disperseAngle)
             opacity = 1
             size = 1.5 * this.strokeWeightFactor
         } else {
             // Disperse phase
-            const localP = (p - 0.65) / 0.35
+            const localP = (p - 0.75) / 0.25
             const eased = ease(localP, 2.5)
 
             const disperseDistance = eased * 300 * this.disperseSpeed / 2
@@ -176,9 +176,9 @@ class AnimationController {
 
         const points = getTextPoints(text, fontSize, 0, 0)
 
-        // Shuffle and limit points
+        // Shuffle and limit points - reduced for performance
         const shuffled = points.sort(() => Math.random() - 0.5)
-        const selectedPoints = shuffled.slice(0, Math.min(4000, points.length))
+        const selectedPoints = shuffled.slice(0, Math.min(1500, points.length))
 
         selectedPoints.forEach((point, index) => {
             this.stars.push(new Star(point, index, selectedPoints.length))
@@ -189,7 +189,7 @@ class AnimationController {
         const animateText = () => {
             this.timeline.to(this, {
                 time: 1,
-                duration: 4.5,
+                duration: 8,
                 ease: "none",
                 onUpdate: () => this.render(),
                 onComplete: () => {
@@ -229,6 +229,14 @@ class AnimationController {
     public destroy() {
         this.timeline.kill()
     }
+
+    public pause() {
+        this.timeline.pause()
+    }
+
+    public resume() {
+        this.timeline.resume()
+    }
 }
 
 export function SpiralAnimation() {
@@ -236,6 +244,20 @@ export function SpiralAnimation() {
     const canvasRef = useRef<HTMLCanvasElement>(null)
     const animationRef = useRef<AnimationController | null>(null)
     const [dimensions, setDimensions] = useState({ width: 0, height: 0 })
+    const [isVisible, setIsVisible] = useState(false)
+
+    // Intersection Observer for visibility-based pausing
+    useEffect(() => {
+        const container = containerRef.current
+        if (!container) return
+
+        const observer = new IntersectionObserver(
+            ([entry]) => setIsVisible(entry.isIntersecting),
+            { threshold: 0.1 }
+        )
+        observer.observe(container)
+        return () => observer.disconnect()
+    }, [])
 
     useEffect(() => {
         const container = containerRef.current
@@ -259,7 +281,7 @@ export function SpiralAnimation() {
         const ctx = canvas.getContext('2d')
         if (!ctx) return
 
-        const dpr = window.devicePixelRatio || 1
+        const dpr = Math.min(window.devicePixelRatio || 1, 2) // Cap DPR at 2
 
         canvas.width = dimensions.width * dpr
         canvas.height = dimensions.height * dpr
@@ -282,6 +304,17 @@ export function SpiralAnimation() {
             }
         }
     }, [dimensions])
+
+    // Pause/resume animation based on visibility
+    useEffect(() => {
+        if (animationRef.current) {
+            if (isVisible) {
+                animationRef.current.resume()
+            } else {
+                animationRef.current.pause()
+            }
+        }
+    }, [isVisible])
 
     return (
         <div ref={containerRef} className="relative w-full h-full">
