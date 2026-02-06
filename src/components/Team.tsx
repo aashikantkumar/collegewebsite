@@ -66,14 +66,12 @@ const team = [
     }
 ];
 
+import { BeamsBackground } from '@/components/ui/beams-background';
+
 const Team = () => {
     return (
-        <section id="team" className="py-20 bg-dark-lighter relative overflow-hidden">
-            {/* Background accents */}
-            <div className="absolute top-1/3 left-0 w-80 h-80 bg-cyan-500/5 rounded-full blur-[120px]" />
-            <div className="absolute bottom-1/3 right-0 w-80 h-80 bg-blue-500/5 rounded-full blur-[120px]" />
-
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <BeamsBackground className="py-20" intensity="medium">
+            <div id="team" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                 <div className="text-center mb-16">
                     <motion.h2
                         initial={{ opacity: 0, y: 20 }}
@@ -113,7 +111,7 @@ const Team = () => {
                                 }}
                                 className="group rounded-2xl"
                             >
-                                <div className="relative bg-[#0a0a16] rounded-2xl border border-white/5 hover:border-cyan-500/30 transition-all duration-500 overflow-hidden">
+                                <div className="relative bg-[#0a0a16]/80 backdrop-blur-sm rounded-2xl border border-white/5 hover:border-cyan-500/30 transition-all duration-500 overflow-hidden">
                                     {/* Spotlight effect */}
                                     <Spotlight
                                         className="z-10 from-cyan-400/30 via-cyan-500/20 to-cyan-600/5 blur-2xl"
@@ -173,7 +171,7 @@ const Team = () => {
                     ))}
                 </div>
             </div>
-        </section>
+        </BeamsBackground>
     );
 };
 

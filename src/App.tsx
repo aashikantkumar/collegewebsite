@@ -1,13 +1,23 @@
 
+import { lazy, Suspense } from 'react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import Stats from './components/Stats';
-import About from './components/About';
-import Services from './components/Services';
-import Projects from './components/Projects';
-import Team from './components/Team';
-import Contact from './components/Contact';
-import Footer from './components/Footer';
+
+// Lazy load below-the-fold components for better performance
+const About = lazy(() => import('./components/About'));
+const Services = lazy(() => import('./components/Services'));
+const Projects = lazy(() => import('./components/Projects'));
+const Team = lazy(() => import('./components/Team'));
+const Contact = lazy(() => import('./components/Contact'));
+const Footer = lazy(() => import('./components/Footer'));
+
+// Loading fallback
+const SectionLoader = () => (
+  <div className="min-h-[200px] flex items-center justify-center">
+    <div className="w-8 h-8 border-2 border-cyan-500 border-t-transparent rounded-full animate-spin" />
+  </div>
+);
 
 function App() {
   return (
@@ -16,15 +26,20 @@ function App() {
       <main>
         <Hero />
         <Stats />
-        <About />
-        <Services />
-        <Projects />
-        <Team />
-        <Contact />
+        <Suspense fallback={<SectionLoader />}>
+          <About />
+          <Services />
+          <Projects />
+          <Team />
+          <Contact />
+        </Suspense>
       </main>
-      <Footer />
+      <Suspense fallback={<SectionLoader />}>
+        <Footer />
+      </Suspense>
     </div>
   );
 }
 
 export default App;
+
