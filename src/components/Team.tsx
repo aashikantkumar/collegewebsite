@@ -5,64 +5,74 @@ import { Spotlight } from '@/components/ui/spotlight';
 
 const team = [
     {
-        name: 'Dr. Deepsubhra Guha Roy',
-        role: 'Centre-in-Charge, Associate Professor',
-        image: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80&w=400',
-        expertise: 'Cloud Architecture, Blockchains, Databases'
+        name: 'Prof. (Dr.) Amartya Mukherjee',
+        role: 'Convener, HoD CSE(AIML), CSBS',
+        image: 'https://iem-edu-in-college-faculty-images.s3.ap-south-1.amazonaws.com/images/faculty17.JPG',
+        expertise: 'Drone Technologies, 5G/6G Networks, UAVs',
+        email: 'amartya.mukherjee@iem.edu.in'
     },
     {
-        name: 'Dr. Amartya Mukherjee',
-        role: 'Convener, HoD CSE(AIML), CSBS',
-        image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=400',
-        expertise: 'Drone Technologies, 5G/6G Networks, UAVs'
+        name: 'Dr. Deepsubhra Guha Roy',
+        role: 'Centre-in-Charge, Associate Professor',
+        image: 'https://iem-edu-in-college-faculty-images.s3.ap-south-1.amazonaws.com/images/faculty11.JPG',
+        expertise: 'Cloud Architecture, Blockchains, Databases',
+        email: 'deepsubhra.guharoy@iem.edu.in'
     },
     {
         name: 'Dr. Ayan Kumar Panja',
         role: 'Senior Member',
-        image: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&q=80&w=400',
-        expertise: 'Indoor Localization, IoT, Federated Learning'
+        image: 'https://iem-edu-in-college-faculty-images.s3.ap-south-1.amazonaws.com/images/faculty8.JPG',
+        expertise: 'Indoor Localization, IoT, Federated Learning',
+        email: 'ayan.panja@iem.edu.in'
     },
     {
         name: 'Dr. Sreya Ghosh',
         role: 'Senior Member',
-        image: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=400',
-        expertise: 'Mobile Ad hoc Networks, VANETs'
+        image: 'https://iem-edu-in-college-faculty-images.s3.ap-south-1.amazonaws.com/Sreya+Ghosh.jpg',
+        expertise: 'Mobile Ad hoc Networks, VANETs',
+        email: ''
     },
     {
         name: 'Dr. Priti Deb',
         role: 'Senior Member',
-        image: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&q=80&w=400',
-        expertise: '5G/6G Networks, Green Mobile Computing, Fog Computing'
+        image: 'https://scholar.googleusercontent.com/citations?view_op=medium_photo&user=JAQ-GIwAAAAJ&citpid=2',
+        expertise: '5G/6G Networks, Green Mobile Computing, Fog Computing',
+        email: ''
     },
     {
         name: 'Bipasha Guha Roy',
         role: 'Senior Member',
-        image: 'https://images.unsplash.com/photo-1594744803329-e58b31de8bf5?auto=format&fit=crop&q=80&w=400',
-        expertise: 'Cloud Computing, IoT, Generative AI'
+        image: 'https://iem-edu-in-college-faculty-images.s3.ap-south-1.amazonaws.com/Bipasha+Guna+Roy.jpeg',
+        expertise: 'Cloud Computing, IoT, Generative AI',
+        email: 'bipasha.mahato@iem.edu.in'
     },
     {
         name: 'Mamani Bandyopadhyay',
         role: 'Member',
-        image: 'https://images.unsplash.com/photo-1551836022-deb4988cc6c0?auto=format&fit=crop&q=80&w=400',
-        expertise: 'Sensors, VLSI, FPGA'
+        image: 'https://iem-edu-in-college-faculty-images.s3.ap-south-1.amazonaws.com/Mamani_Bandyopadhyay_02.JPG',
+        expertise: 'Sensors, VLSI, FPGA',
+        email: 'MAMANI.BANDYOPADHYAY@iem.edu.in'
     },
     {
-        name: 'Tumpa Nath',
+        name: 'Prof. Tumpa Nath',
         role: 'Member',
-        image: 'https://images.unsplash.com/photo-1598550874175-4d0ef436c909?auto=format&fit=crop&q=80&w=400',
-        expertise: 'Cloud Computing'
+        image: 'https://iem-edu-in-college-faculty-images.s3.ap-south-1.amazonaws.com/Tumpa_Nath_01.JPG',
+        expertise: 'Cloud Computing',
+        email: 'tumpanath1991@gmail.com'
     },
     {
         name: 'Debasree Sarkar',
         role: 'Member',
-        image: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&q=80&w=400',
-        expertise: 'To be Filled'
+        image: 'https://iem-edu-in-college-faculty-images.s3.ap-south-1.amazonaws.com/images/faculty10.JPG',
+        expertise: 'To be Filled',
+        email: 'debasree.sarkar@iem.edu.in'
     },
     {
         name: 'Heerok Banerjee',
         role: 'Member',
-        image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=400',
-        expertise: 'Embedded Systems, Industrial IoT, LPWANs, Wireless Networks'
+        image: 'https://iem-edu-in-college-faculty-images.s3.ap-south-1.amazonaws.com/Heerok_Banerjee_01.JPG',
+        expertise: 'Embedded Systems, Industrial IoT, LPWANs, Wireless Networks',
+        email: 'Heerok.Banerjee@iem.edu.in'
     }
 ];
 
@@ -154,12 +164,14 @@ const Team = () => {
                                             >
                                                 <Linkedin className="w-4 h-4" />
                                             </a>
-                                            <a
-                                                href="#"
-                                                className="w-9 h-9 rounded-lg bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400 hover:bg-cyan-500/20 hover:border-cyan-500/40 transition-all"
-                                            >
-                                                <Mail className="w-4 h-4" />
-                                            </a>
+                                            {member.email && (
+                                                <a
+                                                    href={`mailto:${member.email}`}
+                                                    className="w-9 h-9 rounded-lg bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400 hover:bg-cyan-500/20 hover:border-cyan-500/40 transition-all"
+                                                >
+                                                    <Mail className="w-4 h-4" />
+                                                </a>
+                                            )}
                                         </div>
                                     </div>
 
