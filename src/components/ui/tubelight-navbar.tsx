@@ -14,10 +14,12 @@ interface NavItem {
 interface TubelightNavBarProps {
     items: NavItem[]
     className?: string
+    activeTab?: string
 }
 
-export function TubelightNavBar({ items, className }: TubelightNavBarProps) {
-    const [activeTab, setActiveTab] = useState(items[0].name)
+export function TubelightNavBar({ items, className, activeTab: controlledActiveTab }: TubelightNavBarProps) {
+    const [internalActiveTab, setInternalActiveTab] = useState(items[0].name)
+    const activeTab = controlledActiveTab ?? internalActiveTab
 
     return (
         <div
@@ -34,7 +36,7 @@ export function TubelightNavBar({ items, className }: TubelightNavBarProps) {
                     <a
                         key={item.name}
                         href={item.url}
-                        onClick={() => setActiveTab(item.name)}
+                        onClick={() => setInternalActiveTab(item.name)}
                         className={cn(
                             "relative cursor-pointer text-sm font-medium px-4 py-2 rounded-full transition-colors",
                             "text-gray-400 hover:text-cyan-400",
@@ -70,3 +72,4 @@ export function TubelightNavBar({ items, className }: TubelightNavBarProps) {
         </div>
     )
 }
+
